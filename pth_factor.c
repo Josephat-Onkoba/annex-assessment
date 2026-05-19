@@ -2,20 +2,18 @@
 #include <stdlib.h>
 
 long pthFactor(long n, long p) {
-    long *factors = malloc(200000 * sizeof(long));  // Adjust size as needed
+    long *factors = malloc(200000 * sizeof(long));
     long count = 0;
     
-    // Find all factors by checking only up to √n
-    for (long i = 1; i * i <= n; i++) {  // i*i <= n is equivalent to i <= √n
+    for (long i = 1; i * i <= n; i++) {
         if (n % i == 0) {
-            factors[count++] = i;           // Smaller factor
-            if (i != n / i) {                // Avoid duplicates for perfect squares
-                factors[count++] = n / i;    // Larger factor
+            factors[count++] = i;
+            if (i != n / i) {
+                factors[count++] = n / i;
             }
         }
     }
     
-    // Sort factors (bubble sort)
     for (long i = 0; i < count - 1; i++) {
         for (long j = 0; j < count - i - 1; j++) {
             if (factors[j] > factors[j + 1]) {
@@ -28,7 +26,6 @@ long pthFactor(long n, long p) {
     
     printf("Total factors of %ld: %ld\n", n, count);
 
-    // Return p-th factor or 0
     long result = (p <= count) ? factors[p - 1] : 0;
 
     if (result != 0) {
